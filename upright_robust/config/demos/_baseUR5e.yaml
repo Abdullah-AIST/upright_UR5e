@@ -32,10 +32,10 @@ simulation:
       # pitch: -17.8
       # yaw: 91.2
       target: [0.0, 0.0, 0.5]
-      distance: 1
+      distance: 1.5
       roll: 0
-      pitch: -45
-      yaw: 180
+      pitch: -60
+      yaw: 90
 
   video:
     save_frames: true

@@ -126,7 +126,7 @@ class VideoManager:
             recorder.capture_frame(rgba=rgba)
 
             if self.save_frames:
-                path = frames_dir / f"frame_{self.frame_count}.png"
+                path = frames_dir / f"frame_{self.frame_count:03d}.png"
                 recorder.camera.save_frame(path, rgba=rgba)
 
         self.frame_count += 1

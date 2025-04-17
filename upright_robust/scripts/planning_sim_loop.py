@@ -446,7 +446,7 @@ def main():
     master_config = core.parsing.load_config(args.config)
 
     # waypoints from the original paper
-    waypoints = [[0.5, -0.5, 0.25]]
+    waypoints = [[0.65, 0.0, 0.25]]
 
     h_cm = args.height
     h_m = args.height / 100
@@ -563,7 +563,7 @@ def main():
 
     # video
     if args.video:
-        com_idx = 9  # similar to real experiment
+        com_idx = 0  # similar to real experiment
         com_offset = sim_com_offsets[com_idx]
         inertia_diag = sim_inertia_scales[0] * sim_inertias_diag[com_idx]
         waypoint = waypoints[0]
@@ -578,8 +578,8 @@ def main():
 
         # config["simulation"]["extra_gui"] = True
         run_simulation(
-            # config=config, video=f"{args.com}_h{h_cm}", logname=None, use_gui=True
-            config=config, video=None, logname=None, use_gui=True
+            config=config, video=f"{args.com}_h{h_cm}", logname=None, use_gui=True
+            #config=config, video=None, logname=None, use_gui=True
         )
         return
 
