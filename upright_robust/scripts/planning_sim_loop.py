@@ -348,7 +348,7 @@ def max_min_eig_inertia(box, com, diag=True):
         ] + drip_constraints
 
     problem = cp.Problem(objective, constraints)
-    problem.solve(cp.MOSEK)
+    problem.solve(cp.CLARABEL)
     # print(Ic.value)
     # print(problem.value)
 
@@ -373,7 +373,7 @@ def max_trace_inertia(box, com, about_com=True):
         μ >= 0,
     ]
     problem = cp.Problem(objective, constraints)
-    problem.solve(cp.MOSEK)
+    problem.solve(cp.CLARABEL)
     assert problem.status == "optimal"
 
     if about_com:
@@ -446,7 +446,7 @@ def main():
     master_config = core.parsing.load_config(args.config)
 
     # waypoints from the original paper
-    waypoints = [[-2.0, 1.0, 0], [2.0, 0, -0.25], [0.0, -2.0, 0.25]]
+    waypoints = [[0.5, -0.5, 0.25]]
 
     h_cm = args.height
     h_m = args.height / 100

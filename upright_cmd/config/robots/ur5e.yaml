@@ -1,0 +1,83 @@
+simulation:
+  robot:
+    # home: [0.5pi, -0.75pi, -0.5pi, -0.25pi, -0.5pi, 0.5pi]  # upright
+    home: [0.5pi, -0.25pi, 0.5pi, -0.25pi, 0.5pi, 0.0pi]  # standard
+    # home: [0.5pi, -0.25pi, 0, 0.25pi, 0.5pi, -0.583pi]  # inverted
+    dims:
+      q: 6  # generalized position
+      v: 6  # generalized velocity
+      x: 18 # state
+      u: 6  # input
+    noise:
+      measurement:
+        q_std_dev: 0
+        v_std_dev: 0
+      process:
+        v_std_dev: 0
+    joint_names:
+      - "shoulder_pan_joint"
+      - "shoulder_lift_joint"
+      - "elbow_joint"
+      - "wrist_1_joint"
+      - "wrist_2_joint"
+      - "wrist_3_joint"
+    tool_joint_name: "tray_joint"
+    base_type: fixed
+    urdf:
+      package: "upright_assets"
+      path: "ur5e/ur5eTray.urdf"
+      includes:
+        - "$(find upright_assets)/ur5e/ur5eTray.urdf.xacro"
+        - "$(find upright_assets)/ur5e/collision_links.urdf.xacro"
+      args:
+        use_collision: "false"
+        show_balance_link: "false"
+
+controller:
+  # robot parameters
+  robot:
+    dims:
+      q: 6  # generalized position
+      v: 6  # generalized velocity
+      x: 18 # state
+      u: 6  # input
+    # x0: [0.5pi, -0.75pi, -0.5pi, -0.25pi, -0.5pi, 0.5pi, 0rep6, 0rep6]  # upright
+    x0: [0.5pi, -0.25pi, 0.5pi, -0.25pi, 0.5pi, 0.0pi]  # standard
+    # x0: [0.5pi, -0.25pi, 0, 0.25pi, 0.5pi, -0.583pi, 0rep6, 0rep6]  # inverted
+    base_pose: [0, 0, 0]  # planar: x, y, θ
+    urdf:
+      package: "upright_assets"
+      path: "ur5e/ur5eTray.urdf"
+      includes:
+        - "$(find upright_assets)/ur5e/ur5eTray.urdf.xacro"
+        - "$(find upright_assets)/ur5e/collision_links.urdf.xacro"
+      args:
+        use_collision: "true"
+    tool_link_name: "tray"
+    base_type: fixed
+
+  # weights on state, input, and end effector pose
+  weights:
+    input:
+      scale: 0.01
+      diag: [1rep6]
+    state:
+      scale: 0.01
+      diag: [0rep6, 10rep6, 1rep6]
+    end_effector:
+      scale: 1
+      diag: [1, 1, 1, 0, 0, 0]
+
+  # state and input limits
+  limits:
+    constraint_type: hard
+    input:
+      lower: [-90, -90, -90, -90, -90, -90]
+      upper: [90, 90, 90, 90, 90, 90]
+    state:
+      lower: [-1pi, -1pi, -1pi, -1pi, -1pi, -1pi,
+              -3, -3, -3, -3, -3, -3,
+              -10, -10, -10, -10, -10, -10]
+      upper: [1pi, 1pi, 1pi, 1pi, 1pi, 1pi,
+              3, 3, 3, 3, 3, 3,
+              10, 10, 10, 10, 10, 10]

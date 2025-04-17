@@ -1,0 +1,40 @@
+
+controller:
+  obstacles:
+
+    # check collisions between these pairs of objects
+    collision_pairs:
+
+      # base and tray 
+      - ["tray_collision_link_1_0", "base_collision_link_0"]
+      - ["tray_collision_link_2_0", "base_collision_link_0"]
+      - ["tray_collision_link_3_0", "base_collision_link_0"]
+
+      # wrist and tray
+      - ["tray_collision_link_1_0", "wrist1_collision_link_1_0"]
+      - ["tray_collision_link_1_0", "wrist1_collision_link_2_0"]
+      - ["tray_collision_link_1_0", "wrist1_collision_link_3_0"]
+      - ["tray_collision_link_1_0", "wrist1_collision_link_4_0"]
+
+
+      - ["tray_collision_link_2_0", "wrist1_collision_link_1_0"]
+      - ["tray_collision_link_2_0", "wrist1_collision_link_2_0"]
+      - ["tray_collision_link_2_0", "wrist1_collision_link_3_0"]
+      - ["tray_collision_link_2_0", "wrist1_collision_link_4_0"]
+
+      - ["tray_collision_link_3_0", "wrist1_collision_link_1_0"]
+      - ["tray_collision_link_3_0", "wrist1_collision_link_2_0"]
+      - ["tray_collision_link_3_0", "wrist1_collision_link_3_0"]
+      - ["tray_collision_link_3_0", "wrist1_collision_link_4_0"]
+
+
+
+      # wrist and base
+      - ["base_collision_link_0", "wrist1_collision_link_1_0"]
+      - ["base_collision_link_0", "wrist1_collision_link_2_0"]
+      - ["base_collision_link_0", "wrist1_collision_link_3_0"]
+      - ["base_collision_link_0", "wrist1_collision_link_4_0"]
+
+
+
+

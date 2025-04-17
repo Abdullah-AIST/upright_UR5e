@@ -141,4 +141,5 @@ RUN python3 -m pip install pin \
 
 # Test the installation run the following command
 # /catkin_ws/src/upright/upright_cmd/scripts/simulations/mpc_sim.py --config $(rospack find upright_cmd)/config/demos/thing_demo.yaml
-# /catkin_ws/src/upright/upright_cmd/scripts/simulations/mpc_sim.py --config $(rospack find upright_cmd)/config/demos/thing_demo.yaml
+# /catkin_ws/src/upright/upright_cmd/scripts/simulations/mpc_sim.py --config $(rospack find upright_cmd)/config/demos/ur5e_demo.yaml
+# /catkin_ws/src/upright/upright_robust/scripts/planning_sim_loop.py --config $(rospack find upright_robust)/config/demos/simUR5e.yaml --height 30 --com robust --gui

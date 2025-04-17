@@ -131,8 +131,9 @@ class ControllerManager:
 
         # compute EE pose
         model.update(x=model.settings.initial_state)
-        r_ew_w, Q_we = model.robot.link_pose()
-
+        #r_ew_w, Q_we = model.robot.link_pose()
+        r_ew_w = np.zeros(3)
+        Q_we = np.array([0, 0, 0, 1])
         # reference pose trajectory
         ref_trajectory = TargetTrajectories.from_config(
             config, r_ew_w, Q_we, np.zeros(model.settings.dims.u())

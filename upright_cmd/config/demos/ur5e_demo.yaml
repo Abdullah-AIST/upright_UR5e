@@ -1,0 +1,33 @@
+include:
+  -
+    key: simulation
+    package: upright_cmd
+    path: config/simulation.yaml
+  -
+    key: controller
+    package: upright_cmd
+    path: config/controller.yaml
+  -
+    package: upright_cmd
+    path: config/robots/ur5e.yaml
+
+logging:
+  timestep: 0.010
+  log_dir: /workspaces/upright_UR5e/Results
+
+simulation:
+  duration: 10.0
+  arrangement: pink_bottle
+
+controller:
+  balancing:
+    arrangement: pink_bottle
+    constraint_type: hard
+    enabled: true
+    use_force_constraints: true
+
+  waypoints:
+    -
+      time: 0
+      position: [-0.25, 0.5, 0.25]
+      orientation: [0, 0, 0, 1]

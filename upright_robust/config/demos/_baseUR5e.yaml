@@ -1,0 +1,93 @@
+include:
+  -
+    key: simulation
+    package: upright_robust
+    path: config/simulation.yaml
+  -
+    key: controller
+    package: upright_robust
+    path: config/controller.yaml
+  -
+    package: upright_cmd
+    path: config/robots/ur5e.yaml
+  -
+    package: upright_cmd
+    path: config/obstacles/simpleUR5e.yaml
+
+logging:
+  timestep: 0.010
+  log_dir: /workspaces/upright_UR5e/Results
+
+simulation:
+  # we keep it at 12 in case there are any failures to the transition to
+  # v_cmd=0 at t=10
+  duration: 12.0
+  extra_gui: false
+
+  cameras:
+    camera1:
+      # target: [1.04, 2.26, 0.92]
+      # distance: 1
+      # roll: 0
+      # pitch: -17.8
+      # yaw: 91.2
+      target: [0.0, 0.0, 0.5]
+      distance: 1
+      roll: 0
+      pitch: -45
+      yaw: 180
+
+  video:
+    save_frames: true
+    dir: /workspaces/upright_UR5e/Results/videos
+    timestep: 0.040
+    views:
+      -
+        camera: camera1
+        name: view1
+
+controller:
+  robot:
+    urdf:
+      args:
+        use_collision: "true"
+
+  obstacles:
+    enabled: true
+    constraint_type: hard
+    minimum_distance: 0.1
+
+  mpc:
+    time_horizon: 10.0
+
+  sqp:
+    sqp_iteration: 1
+    init_sqp_iteration: 3
+    # init_sqp_iteration: 6
+    # init_sqp_iteration: 10
+    # init_sqp_iteration: 20
+    use_feedback_policy: false
+    hpipm:
+      iter_max: 30
+      warm_start: 1
+      slacks:
+        enabled: true
+        input_box: false
+        state_box: true
+        poly_ineq: true
+
+  balancing:
+    enabled: true
+    frictionless: true
+    force_weight: 0.0
+
+  weights:
+    input:
+      scale: 0.001
+      diag: [1rep6]
+    state:
+      scale: 0.01
+      diag: [0rep6, 10rep6, 1rep6]
+    end_effector:
+      scale: 1
+      diag: [1, 1, 1, 0, 0, 0]

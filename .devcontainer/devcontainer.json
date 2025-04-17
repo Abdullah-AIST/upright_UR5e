@@ -23,6 +23,17 @@
 	// Uncomment to connect as an existing user other than the container default. More info: https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "devcontainer"
 
+	"mounts": [
+		"source=${localWorkspaceFolder}/upright_assets,target=/catkin_ws/src/upright/upright_assets,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/upright_cmd,target=/catkin_ws/src/upright/upright_cmd,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/upright_sim,target=/catkin_ws/src/upright/upright_sim,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/upright_robust,target=/catkin_ws/src/upright/upright_robust,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/upright_control,target=/catkin_ws/src/upright/upright_control,type=bind,consistency=cached",
+		"source=${localWorkspaceFolder}/mobile_manipulation_central,target=/catkin_ws/src/mobile_manipulation_central,type=bind,consistency=cached",
+	],
+
+
+
 	
     "containerEnv": {
         "DISPLAY": "${localEnv:DISPLAY}",
@@ -32,6 +43,7 @@
     },
     "runArgs": [
         "--volume=/tmp/.X11-unix:/tmp/.X11-unix",
+		"--privileged",
     ]
 	
 }

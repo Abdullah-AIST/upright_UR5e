@@ -1,0 +1,387 @@
+<?xml version="1.0" ?>
+<robot name="robot">
+  <joint name="tray_joint" type="fixed">
+    <origin rpy="-1.5707964 -1.5707963 0. " xyz="-0. 0.05 0.1049999"/>
+    <parent link="wrist_3_link"/>
+    <child link="tray"/>
+  </joint>
+  <joint name="elbow_joint" type="revolute">
+    <origin rpy="0. 0. 0." xyz="-0.425 0. 0. "/>
+    <parent link="upper_arm_link"/>
+    <child link="forearm_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="150." lower="-3.1415927" upper="3.1415927" velocity="3.1415927"/>
+  </joint>
+  <joint name="root_joint" type="fixed">
+    <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+    <parent link="ur5e"/>
+    <child link="base_link"/>
+  </joint>
+  <joint name="shoulder_lift_joint" type="revolute">
+    <origin rpy="1.5707964 0. 0. " xyz="0. 0. 0."/>
+    <parent link="shoulder_link"/>
+    <child link="upper_arm_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="150." lower="-6.2831853" upper="6.2831853" velocity="3.1415927"/>
+  </joint>
+  <joint name="shoulder_pan_joint" type="revolute">
+    <origin rpy="0. 0. -3.1415925" xyz="0. 0. 0.1625"/>
+    <parent link="base_link"/>
+    <child link="shoulder_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="150." lower="-6.2831853" upper="6.2831853" velocity="3.1415927"/>
+  </joint>
+  <joint name="wrist_1_joint" type="revolute">
+    <origin rpy="0. 0. 0." xyz="-0.3922 0. 0.1333"/>
+    <parent link="forearm_link"/>
+    <child link="wrist_1_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="28." lower="-6.2831853" upper="6.2831853" velocity="3.1415927"/>
+  </joint>
+  <joint name="wrist_2_joint" type="revolute">
+    <origin rpy="1.5707964 0. 0. " xyz="-0. -0.0997 -0. "/>
+    <parent link="wrist_1_link"/>
+    <child link="wrist_2_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="28." lower="-6.2831853" upper="6.2831853" velocity="3.1415927"/>
+  </joint>
+  <joint name="wrist_3_joint" type="revolute">
+    <origin rpy="-1.5707964 -0.0000001 0.0000001" xyz="0. 0.0996 -0. "/>
+    <parent link="wrist_2_link"/>
+    <child link="wrist_3_link"/>
+    <axis xyz="0. 0. 1."/>
+    <limit effort="28." lower="-6.2831853" upper="6.2831853" velocity="3.1415927"/>
+  </joint>
+  <link name="base_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+      <mass value="4."/>
+      <inertia ixx="0.0044333" ixy="0." ixz="0." iyy="0.0044333" iyz="0." izz="0.0072"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5707872 0. 0. " xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/base_link_visuals_base_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/base_link_collisions_base_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="forearm_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="-0.1961 0. 0.007 "/>
+      <mass value="2.2750001"/>
+      <inertia ixx="0.0312094" ixy="0." ixz="0." iyy="0.0312094" iyz="0." izz="0.004095"/>
+    </inertial>
+    <visual>
+      <origin rpy="3.1415837 0. -1.5707964" xyz="0. 0. 0.007"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/forearm_link_visuals_forearm_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="1.5707964 0. -1.5707964" xyz="0. 0. 0.007"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/forearm_link_collisions_forearm_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="shoulder_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+      <mass value="3.7"/>
+      <inertia ixx="0.0102675" ixy="0." ixz="0." iyy="0.0102675" iyz="0." izz="0.00666"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5707872 0. -3.1415925" xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/shoulder_link_visuals_shoulder_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0. 0. -3.1415925" xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/shoulder_link_collisions_shoulder_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="tray">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="-0.0332617 -0.0000095 -0.0247041"/>
+      <mass value="0.35"/>
+      <inertia ixx="0.0009002" ixy="0.0000004" ixz="0.0001363" iyy="0.0009958" iyz="0.000002" izz="0.0016743"/>
+    </inertial>
+    <visual>
+      <origin rpy="0. -0. 3.1415927" xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/tray_visuals_Tray_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0. 0. -3.1415927" xyz="0. 0. 0."/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/tray_collisions_Tray_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="upper_arm_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="-0.2125 0. 0.138 "/>
+      <mass value="8.3929996"/>
+      <inertia ixx="0.1338858" ixy="0." ixz="0." iyy="0.1338858" iyz="0." izz="0.0151074"/>
+    </inertial>
+    <visual>
+      <origin rpy="3.1415837 0. -1.5707964" xyz="0. 0. 0.138"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/upper_arm_link_visuals_upperarm_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="1.5707964 0. -1.5707964" xyz="0. 0. 0.138"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/upper_arm_link_collisions_upperarm_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="ur5e"/>
+  <link name="wrist_1_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+      <mass value="1.219"/>
+      <inertia ixx="0.0025599" ixy="0." ixz="0." iyy="0.0025599" iyz="0." izz="0.0021942"/>
+    </inertial>
+    <visual>
+      <origin rpy="3.1415837 0. 0. " xyz="-0. 0. -0.127"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_1_link_visuals_wrist1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="1.5707964 0. 0. " xyz="-0. 0. -0.127"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_1_link_collisions_wrist1_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wrist_2_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="0. 0. 0."/>
+      <mass value="1.219"/>
+      <inertia ixx="0.0025599" ixy="0." ixz="0." iyy="0.0025599" iyz="0." izz="0.0021942"/>
+    </inertial>
+    <visual>
+      <origin rpy="1.5707872 0. 0. " xyz="0. 0. -0.0997"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_2_link_visuals_wrist2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0. 0. 0." xyz="0. 0. -0.0997"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_2_link_collisions_wrist2_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <link name="wrist_3_link">
+    <inertial>
+      <origin rpy="0. 0. 0." xyz="0. 0. -0.0229"/>
+      <mass value="0.1879"/>
+      <inertia ixx="0.0000989" ixy="0." ixz="0." iyy="0.0000989" iyz="0." izz="0.0001321"/>
+    </inertial>
+    <visual>
+      <origin rpy="3.1415837 0. 0. " xyz="-0. -0. -0.0989"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_3_link_visuals_wrist3_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="1.5707964 0. 0. " xyz="-0. -0. -0.0989"/>
+      <geometry>
+        <mesh filename="file:///catkin_ws/src/upright/upright_assets/ur5e/meshes/wrist_3_link_collisions_wrist3_mesh.obj" scale="1. 1. 1."/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- NOTE: Use zero transparency for the photo shoot -->
+  <!-- TODO: have this as a config option -->
+  <material name="obstacle_material">
+    <color rgba="1.0 0.0 0.0 0.25"/>
+    <!-- <color rgba="1.0 0.0 0.0 1.0"/> -->
+  </material>
+  <link name="tray_collision_link_1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="balanced_object_collision_joint_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+    <parent link="tray"/>
+    <child link="tray_collision_link_1"/>
+  </joint>
+  <link name="tray_collision_link_2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.1"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="balanced_object_collision_joint_2" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+    <parent link="tray"/>
+    <child link="tray_collision_link_2"/>
+  </joint>
+  <link name="tray_collision_link_3">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0.2"/>
+      <geometry>
+        <!-- <sphere radius="0.21"/> -->
+        <sphere radius="0.1"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="balanced_object_collision_joint_3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <!-- <origin rpy="0 0 0" xyz="0 0 0"/> -->
+    <parent link="tray"/>
+    <child link="tray_collision_link_3"/>
+  </joint>
+  <link name="base_collision_link">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <box size="1.0 0.8 0.3"/> -->
+        <sphere radius="0.2"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <!-- <box size="1.0 0.8 0.3"/> -->
+        <sphere radius="0.2"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <!-- TODO it would probably be better to make this relative to the chassis link, so that it includes the calibrated base transform, but this would require some testing as well -->
+  <joint name="base_collision_joint" type="fixed">
+    <!-- <origin rpy="0 0 0" xyz="0 0 0.16"/> -->
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="base_collision_link"/>
+  </joint>
+  <link name="wrist1_collision_link_1">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="wrist1_collision_joint_1" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="wrist_1_link"/>
+    <child link="wrist1_collision_link_1"/>
+  </joint>
+  <link name="wrist1_collision_link_2">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.05"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="wrist1_collision_joint_2" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="wrist_1_link"/>
+    <child link="wrist1_collision_link_2"/>
+  </joint>
+  <link name="wrist1_collision_link_3">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.1"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.1"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="wrist1_collision_joint_3" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="wrist_1_link"/>
+    <child link="wrist1_collision_link_3"/>
+  </joint>
+  <link name="wrist1_collision_link_4">
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 -0.15"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 -0.15"/>
+      <geometry>
+        <sphere radius="0.05"/>
+      </geometry>
+      <material name="obstacle_material"/>
+    </visual>
+  </link>
+  <joint name="wrist1_collision_joint_4" type="fixed">
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <parent link="wrist_1_link"/>
+    <child link="wrist1_collision_link_4"/>
+  </joint>
+</robot>

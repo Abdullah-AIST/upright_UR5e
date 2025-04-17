@@ -1,0 +1,7 @@
+include:
+  -
+    package: upright_robust
+    path: config/demos/_baseUR5e.yaml
+
+simulation:
+  timestep: 0.0001
