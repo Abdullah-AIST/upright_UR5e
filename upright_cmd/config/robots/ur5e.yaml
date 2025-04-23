@@ -2,6 +2,7 @@ simulation:
   robot:
     # home: [0.5pi, -0.75pi, -0.5pi, -0.25pi, -0.5pi, 0.5pi]  # upright
     home: [0.5pi, -0.25pi, 0.5pi, -0.25pi, 0.5pi, 0.0pi]  # standard
+    #home: [0.0pi, -0.0pi, 0.0pi, -0.0pi, 0.5pi, 0.0pi]  # standard
     # home: [0.5pi, -0.25pi, 0, 0.25pi, 0.5pi, -0.583pi]  # inverted
     dims:
       q: 6  # generalized position
@@ -59,11 +60,11 @@ controller:
   # weights on state, input, and end effector pose
   weights:
     input:
-      scale: 0.01
+      scale: 0.001
       diag: [1rep6]
     state:
       scale: 0.01
-      diag: [0rep6, 10rep6, 1rep6]
+      diag: [0rep6, 1rep6, 1rep6]
     end_effector:
       scale: 1
       diag: [1, 1, 1, 0, 0, 0]
@@ -72,12 +73,15 @@ controller:
   limits:
     constraint_type: hard
     input:
-      lower: [-90, -90, -90, -90, -90, -90]
-      upper: [90, 90, 90, 90, 90, 90]
+      lower: [-108, -90, -18, -135, -18, -90]
+      upper: [108, 90, 180, 45, 180, 90]
+      #lower: [-10, -10, -10, -10, -10, -10]
+      #upper: [10, 10, 10, 10, 10, 10]
+
     state:
-      lower: [-1pi, -1pi, -1pi, -1pi, -1pi, -1pi,
+      lower: [-0.6pi, -0.5pi, -0.1pi, -0.75pi, -0.1pi, -0.5pi,
               -3, -3, -3, -3, -3, -3,
               -10, -10, -10, -10, -10, -10]
-      upper: [1pi, 1pi, 1pi, 1pi, 1pi, 1pi,
+      upper: [0.6pi, 0.5pi, 1pi, 0.25pi, 1pi, 0.5pi,
               3, 3, 3, 3, 3, 3,
               10, 10, 10, 10, 10, 10]

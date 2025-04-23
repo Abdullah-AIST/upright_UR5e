@@ -15,13 +15,13 @@ include:
     path: config/obstacles/simpleUR5e.yaml
 
 logging:
-  timestep: 0.010
-  log_dir: /workspaces/upright_UR5e/Results
+  timestep: 0.002
+  log_dir: /workspaces/upright_UR5e/Results/logs
 
 simulation:
   # we keep it at 12 in case there are any failures to the transition to
   # v_cmd=0 at t=10
-  duration: 12.0
+  duration: 6.0
   extra_gui: false
 
   cameras:
@@ -55,20 +55,22 @@ controller:
   obstacles:
     enabled: true
     constraint_type: hard
-    minimum_distance: 0.1
+    minimum_distance: 0.01
 
   mpc:
-    time_horizon: 10.0
+    time_horizon: 6.0
 
+  tracking:
+    rate: 500  # Hz
   sqp:
     sqp_iteration: 1
-    init_sqp_iteration: 3
+    init_sqp_iteration: 50
     # init_sqp_iteration: 6
     # init_sqp_iteration: 10
     # init_sqp_iteration: 20
     use_feedback_policy: false
     hpipm:
-      iter_max: 30
+      iter_max: 100
       warm_start: 1
       slacks:
         enabled: true
@@ -87,7 +89,7 @@ controller:
       diag: [1rep6]
     state:
       scale: 0.01
-      diag: [0rep6, 10rep6, 1rep6]
+      diag: [0rep6, 1rep6, 1rep6]
     end_effector:
       scale: 1
       diag: [1, 1, 1, 0, 0, 0]

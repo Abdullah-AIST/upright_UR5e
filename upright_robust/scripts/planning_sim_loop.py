@@ -50,7 +50,7 @@ def compute_trajectory(config):
     step = 0
     xds = []
     while t <= model.settings.mpc.time_horizon:
-        if step % 100 == 0:
+        if step % 1 == 0:
             mpc.evaluateMpcSolution(t, x, xd, u)
             xds.append(xd.copy())
         step += 1
@@ -179,7 +179,7 @@ def run_simulation(config, video, logname, use_gui=True):
         env.robot.command_velocity(v_cmd, bodyframe=False)
 
         # TODO more logger reforms to come
-        if step % 100 == 0:
+        if step % 1 == 0: # log every 1 timestep
             # log sim stuff
             r_ew_w, Q_we = env.robot.link_pose()
             v_ew_w, ω_ew_w = env.robot.link_velocity()
@@ -446,17 +446,20 @@ def main():
     master_config = core.parsing.load_config(args.config)
 
     # waypoints from the original paper
-    waypoints = [[0.65, 0.0, 0.25]]
+
+    waypoints = [[0.0, -0.6, 0.25]]
+
+
 
     h_cm = args.height
     h_m = args.height / 100
     h2_m = 0.5 * h_m
-    b = 0.06  # 12cm x 12cm bounding box for the CoM
+    b = 0.04  # 12cm x 12cm bounding box for the CoM
 
     ctrl_obj_config = {
         "mass": 1.0,
         "shape": "cuboid",
-        "side_lengths": [0.15, 0.15, h_m],
+        "side_lengths": [0.085, 0.085, h_m],
         "color": [1, 0, 0, 1],
         "bounds": {
             "approx": {
@@ -550,16 +553,23 @@ def main():
         + box_face_centers(sim_com_box)
         + [list(v) for v in sim_com_box.vertices]
     )
+    sim_com_offsets = (
+        [[0, 0, 0]]
+    )
 
     # mass-normalized inertias (about the CoM)
     sim_inertias_diag = [
         sim_obj_config["mass"] * max_min_eig_inertia(box, c, diag=True)
         for c in sim_com_offsets
     ]
-    sim_inertia_scales = [1.0, 0.5, 0.1]
+    sim_inertia_scales = [1.0]#, 0.5, 0.1]
 
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     dirname = f"{args.com}_h{h_cm}_{timestamp}"
+    
+    home = [0.5*np.pi, -0.25*np.pi, 0.5*np.pi, -0.25*np.pi, 0.5*np.pi, 0.0] 
+    master_config["simulation"]["robot"]["home"] = home
+    master_config["controller"]["robot"]["x0"] = home
 
     # video
     if args.video:
