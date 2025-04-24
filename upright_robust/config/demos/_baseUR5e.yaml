@@ -21,7 +21,7 @@ logging:
 simulation:
   # we keep it at 12 in case there are any failures to the transition to
   # v_cmd=0 at t=10
-  duration: 6.0
+  duration: 7.0
   extra_gui: false
 
   cameras:
@@ -58,11 +58,12 @@ controller:
     minimum_distance: 0.01
 
   mpc:
-    time_horizon: 6.0
+    time_horizon: 6.0 # 5 for center
 
   tracking:
     rate: 500  # Hz
   sqp:
+    dt: 0.01
     sqp_iteration: 1
     init_sqp_iteration: 50
     # init_sqp_iteration: 6

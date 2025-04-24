@@ -447,19 +447,19 @@ def main():
 
     # waypoints from the original paper
 
-    waypoints = [[0.0, -0.6, 0.25]]
+    waypoints = [[0.0, -0.9, 0.5]]
 
 
 
     h_cm = args.height
     h_m = args.height / 100
     h2_m = 0.5 * h_m
-    b = 0.04  # 12cm x 12cm bounding box for the CoM
+    b = 0.012  # 12cm x 12cm bounding box for the CoM
 
     ctrl_obj_config = {
         "mass": 1.0,
         "shape": "cuboid",
-        "side_lengths": [0.085, 0.085, h_m],
+        "side_lengths": [0.15, 0.15, h_m],
         "color": [1, 0, 0, 1],
         "bounds": {
             "approx": {
@@ -474,7 +474,7 @@ def main():
     }
 
     sim_obj_config = {
-        "mass": 1.0,
+        "mass": 1.2,
         "shape": "cuboid",
         "side_lengths": ctrl_obj_config["side_lengths"],
         "color": [1, 0, 0, 1],
