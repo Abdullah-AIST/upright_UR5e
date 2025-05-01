@@ -460,9 +460,9 @@ def main():
     b = 0.012  # 12cm x 12cm bounding box for the CoM
 
     ctrl_obj_config = {
-        "mass": 0.79,
+        "mass": 1.0,
         "shape": "cuboid",
-        "side_lengths": [0.085, 0.085, h_m],
+        "side_lengths": [0.15, 0.15, h_m],
         "color": [1, 0, 0, 1],
         "bounds": {
             "approx": {
@@ -477,7 +477,7 @@ def main():
     }
 
     sim_obj_config = {
-        "mass": 0.79,
+        "mass": 1.2,
         "shape": "cuboid",
         "side_lengths": ctrl_obj_config["side_lengths"],
         "color": [1, 0, 0, 1],
@@ -567,9 +567,8 @@ def main():
     ]
     sim_inertia_scales = [1.0]#, 0.5, 0.1]
 
-    #timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    #dirname = f"{args.com}_h{h_cm}_{timestamp}"
-    dirname = "WoodBlock"
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    dirname = f"{args.com}_h{h_cm}_{timestamp}"
     
     home = [0.5*np.pi, -0.25*np.pi, 0.5*np.pi, -0.25*np.pi, 0.5*np.pi, 0.0] 
     master_config["simulation"]["robot"]["home"] = home
@@ -597,20 +596,38 @@ def main():
         )
         return
 
+    # desired = {0 : [], 1: [], 2: []}
+    # ee_errs = {0: [], 1: [], 2: []}
+    # for iter in range(1, 11):
+    #     for i, waypoint in enumerate(waypoints):
+    #         config = copy.deepcopy(master_config)
+    #         config["controller"]["sqp"]["init_sqp_iteration"] = iter
+    #         config["controller"]["waypoints"] = [
+    #             {"time": 0, "position": waypoint, "orientation": [0, 0, 0, 1]}
+    #         ]
+    #         # config["simulation"]["objects"][OBJECT_NAME] = sim_obj_config
+    #
+    #         if i > 0:
+    #             config["controller"]["recompile_libraries"] = False
+    #
+    #         xds, err = compute_trajectory(config=config)
+    #         desired[i].append(xds)
+    #         ee_errs[i].append(err)
+    #
+    # deltas = {0: [], 1: [], 2: []}
+    # for i in range(3):
+    #     for j in range(len(desired[i]) - 1):
+    #         err = np.sum(np.linalg.norm(desired[i][j+1] - desired[i][j], axis=1))
+    #         deltas[i].append(err)
+    #
+    # IPython.embed()
+    # return
 
-    run = 0
-    failed = 0
+    run = 1
     for com_offset, inertia_diag in zip(sim_com_offsets, sim_inertias_diag):
         for s in sim_inertia_scales:
-            for home, waypoint in zip(initJointPos, targetPos):
-                print("Home = ", home)
-                print("Waypoint = ", waypoint)
+            for waypoint in waypoints:
                 print(f"run = {run}")
-
-                master_config["simulation"]["robot"]["home"] = home.tolist()
-                master_config["controller"]["robot"]["x0"] = home.tolist()
-
-                waypoint = waypoint.tolist()
 
                 config = copy.deepcopy(master_config)
                 config["controller"]["waypoints"] = [
@@ -641,25 +658,14 @@ def main():
                     config["controller"]["recompile_libraries"] = False
 
                 if args.log:
-                    name = f"{dirname}/run_{run:02d}"
+                    name = f"{dirname}/run_{run}"
                 else:
                     name = None
-                
-                try:
-                    run_simulation(
-                        config=config, video=None, logname=name, use_gui=args.gui
-                    )
-                except Exception as e:
-                    print(f"Error in run {run}: {e}")
-                    pyb.disconnect()
-                    failed += 1
 
-                    # IPython.embed()
+                run_simulation(
+                    config=config, video=None, logname=name, use_gui=args.gui
+                )
                 run += 1
-
-
-    print(f"Total runs: {run}")
-    print(f"Failed runs: {failed}")
 
 
 if __name__ == "__main__":
